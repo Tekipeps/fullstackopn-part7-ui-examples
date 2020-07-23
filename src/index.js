@@ -10,15 +10,22 @@ import {
   useRouteMatch,
   useHistory,
 } from 'react-router-dom'
-import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
 import {
   Container,
   TableContainer,
   Paper,
+  Table,
   TableBody,
   TableCell,
   TableRow,
+  TextField,
+  Button,
+  IconButton,
+  AppBar,
+  Toolbar,
 } from '@material-ui/core'
+
+import { Alert } from '@material-ui/lab'
 
 const Home = () => (
   <div>
@@ -92,17 +99,19 @@ const Login = (props) => {
   return (
     <div>
       <h2>login</h2>
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Label>username:</Form.Label>
-          <Form.Control type="text" name="username" />
-          <Form.Label>password:</Form.Label>
-          <Form.Control type="password" />
-          <Button variant="primary" type="submit">
+      <form onSubmit={onSubmit}>
+        <div>
+          <TextField label="username" />
+        </div>
+        <div>
+          <TextField label="password" type="password" />
+        </div>
+        <div>
+          <Button variant="contained" color="primary" type="submit">
             login
           </Button>
-        </Form.Group>
-      </Form>
+        </div>
+      </form>
     </div>
   )
 }
@@ -140,10 +149,6 @@ const App = () => {
     }, 5000)
   }
 
-  const padding = {
-    padding: 5,
-  }
-
   const match = useRouteMatch('/notes/:id')
   const note = match
     ? notes.find((note) => note.id === Number(match.params.id))
@@ -151,38 +156,33 @@ const App = () => {
 
   return (
     <Container>
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/">
-                home
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/notes">
-                notes
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/users">
-                users
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              {user ? (
-                <em>{user} logged in</em>
-              ) : (
-                <Link style={padding} to="/login">
-                  login
-                </Link>
-              )}
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      {message && <Alert variant="success">{message}</Alert>}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          ></IconButton>
+          <Button color="inherit" component={Link} to="/">
+            home
+          </Button>
+          <Button color="inherit" component={Link} to="/notes">
+            notes
+          </Button>
+          <Button color="inherit" component={Link} to="/users">
+            users
+          </Button>
+
+          {user ? (
+            <em>{user} logged in</em>
+          ) : (
+            <Button color="inherit" component={Link} to="/login">
+              login
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+      {message && <Alert severity="success">{message}</Alert>}
       <Switch>
         <Route path="/notes/:id">
           <Note note={note} />
