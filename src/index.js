@@ -66,9 +66,6 @@ const Notes = ({ notes }) => (
         </TableBody>
       </Table>
     </TableContainer>
-    <Table striped>
-      <tbody></tbody>
-    </Table>
   </div>
 )
 
