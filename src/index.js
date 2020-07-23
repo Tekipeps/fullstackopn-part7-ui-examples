@@ -11,6 +11,7 @@ import {
   useHistory,
 } from 'react-router-dom'
 import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+import { Container } from '@material-ui/core'
 
 const Home = () => (
   <div>
@@ -140,7 +141,7 @@ const App = () => {
     : null
 
   return (
-    <div className="container">
+    <Container>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -194,7 +195,7 @@ const App = () => {
         <br />
         <em>Note app, Department of Computer Science 2020</em>
       </div>
-    </div>
+    </Container>
   )
 }
 
