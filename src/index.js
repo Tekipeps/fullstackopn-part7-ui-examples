@@ -11,7 +11,14 @@ import {
   useHistory,
 } from 'react-router-dom'
 import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
-import { Container } from '@material-ui/core'
+import {
+  Container,
+  TableContainer,
+  Paper,
+  TableBody,
+  TableCell,
+  TableRow,
+} from '@material-ui/core'
 
 const Home = () => (
   <div>
@@ -45,17 +52,22 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
   <div>
     <h2>Notes</h2>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableBody>
+          {notes.map((note) => (
+            <TableRow key={note.id}>
+              <TableCell>
+                <Link to={`/notes/${note.id}`}>{note.content}</Link>
+              </TableCell>
+              <TableCell>{note.user}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     <Table striped>
-      <tbody>
-        {notes.map((note) => (
-          <tr key={note.id}>
-            <td>
-              <Link to={`/notes/${note.id}`}>{note.content}</Link>
-            </td>
-            <td>{note.user}</td>
-          </tr>
-        ))}
-      </tbody>
+      <tbody></tbody>
     </Table>
   </div>
 )
