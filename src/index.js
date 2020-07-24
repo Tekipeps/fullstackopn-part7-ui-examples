@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-
+import styled from 'styled-components'
+import { Table } from 'react-bootstrap'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,7 +11,35 @@ import {
   useRouteMatch,
   useHistory,
 } from 'react-router-dom'
-import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+
+const Button = styled.button`
+  background: Bisque;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid Chocolate;
+  border-radius: 3px;
+`
+
+const Input = styled.input`
+  margin: 0.25em;
+`
+
+const Page = styled.div`
+  padding: 1em;
+  background: papayawhip;
+`
+
+const Navigation = styled.div`
+  background: BurlyWood;
+  padding: 1em;
+`
+
+const Footer = styled.div`
+  background: Chocolate;
+  padding: 1em;
+  margin-top: 1em;
+`
 
 const Home = () => (
   <div>
@@ -82,17 +111,19 @@ const Login = (props) => {
   return (
     <div>
       <h2>login</h2>
-      <Form onSubmit={onSubmit}>
-        <Form.Group>
-          <Form.Label>username:</Form.Label>
-          <Form.Control type="text" name="username" />
-          <Form.Label>password:</Form.Label>
-          <Form.Control type="password" />
-          <Button variant="primary" type="submit">
-            login
-          </Button>
-        </Form.Group>
-      </Form>
+      <form onSubmit={onSubmit}>
+        <div>
+          username:
+          <Input />
+        </div>
+        <div>
+          password:
+          <Input type="password" />
+        </div>
+        <Button type="submit" primary="">
+          login
+        </Button>
+      </form>
     </div>
   )
 }
@@ -140,39 +171,26 @@ const App = () => {
     : null
 
   return (
-    <div className="container">
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/">
-                home
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/notes">
-                notes
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              <Link style={padding} to="/users">
-                users
-              </Link>
-            </Nav.Link>
-            <Nav.Link href="#" as="span">
-              {user ? (
-                <em>{user} logged in</em>
-              ) : (
-                <Link style={padding} to="/login">
-                  login
-                </Link>
-              )}
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      {message && <Alert variant="success">{message}</Alert>}
+    <Page>
+      <Navigation>
+        <Link style={padding} to="/">
+          home
+        </Link>
+        <Link style={padding} to="/notes">
+          notes
+        </Link>
+        <Link style={padding} to="/users">
+          users
+        </Link>
+        {user ? (
+          <em>{user} logged in</em>
+        ) : (
+          <Link style={padding} to="/login">
+            login
+          </Link>
+        )}
+      </Navigation>
+
       <Switch>
         <Route path="/notes/:id">
           <Note note={note} />
@@ -190,11 +208,11 @@ const App = () => {
           <Home />
         </Route>
       </Switch>
-      <div>
-        <br />
+
+      <Footer>
         <em>Note app, Department of Computer Science 2020</em>
-      </div>
-    </div>
+      </Footer>
+    </Page>
   )
 }
 
